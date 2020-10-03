@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "sigo-ingress"
+  namespace: "sigo"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internal # internet-facing
+  labels:
+    app: sigo-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: "sigo-partner-service"
+              servicePort: 8081

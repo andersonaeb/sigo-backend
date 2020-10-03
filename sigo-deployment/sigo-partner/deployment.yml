@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sigo-partner-deployment 
+  namespace: sigo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sigo-partner
+  template:
+    metadata:
+      labels:
+        app: sigo-partner
+    spec:
+      containers:
+        - name: sigo-partner
+          image: 630947548599.dkr.ecr.us-east-1.amazonaws.com/sigo-partner:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+          - name: DATABASE_HOST
+            value: "mysql"
+          - name: DATABASE_NAME
+            value: "sigo_partner"
+          - name: DATABASE_USERNAME
+            value: "admin"
+          - name: DATABASE_PASSWORD
+            value: "Sigo12454"

@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sigo-partner-service
+  namespace: sigo
+spec:
+  selector:
+    app: sigo-partner
+  type: NodePort
+  ports:
+    - port: 8081
+      targetPort: 8080

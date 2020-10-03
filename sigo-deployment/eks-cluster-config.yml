@@ -1,0 +1,28 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: sigo
+  region: us-east-1
+
+vpc:
+  id: vpc-0bdab5fcad19dd957
+  cidr: "192.168.0.0/16"
+  subnets:    
+    private:
+      us-east-1a:
+        id: subnet-0234124d2d9c9336c
+      us-east-1b:
+        id: subnet-05c73a3dfbfb3190d
+    public:
+      us-east-1a:
+        id: subnet-0eea1f986de846f94
+      us-east-1b:
+        id: subnet-070d4717e8d3a5c50
+nodeGroups:
+  - name: EKS-public-workers
+    instanceType: t2.micro
+    desiredCapacity: 2
+  - name: EKS-private-workers
+    instanceType: t2.micro
+    desiredCapacity: 1
+    privateNetworking: true

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: sigo
+spec:
+  type: ExternalName
+  externalName: sigo-db.cqtmlyouxhi9.us-east-1.rds.amazonaws.com

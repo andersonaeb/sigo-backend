@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+
+  sigo-db:
+    container_name: sigo-db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'sigo'
+      MYSQL_USER: 'sigo'
+      MYSQL_PASSWORD: 'sigo'
+      MYSQL_ROOT_PASSWORD: 'sigo'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    networks:
+        - sigo
+
+  sigo-partner:
+    container_name: sigo-partner
+    image: sigo/sigo-partner:latest
+    environment:
+      DATABASE_HOST: 'sigo-db'
+    ports:
+      - '8081:8080'
+    networks:
+        - sigo
+
+volumes:
+  my-db:
+networks:
+  sigo:
