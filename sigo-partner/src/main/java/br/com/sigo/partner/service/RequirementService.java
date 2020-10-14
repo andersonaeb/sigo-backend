@@ -12,4 +12,8 @@ public interface RequirementService {
     RequirementResponseDTO createRequirement(RequirementRequestDTO requirementRequestDTO);
 
     RequirementResponseDTO updateRequirement(Integer requirementId, RequirementRequestDTO requirementRequestDTO);
+
+    void deleteRequirement(Integer requirementId);
+
+    RequirementResponseDTO getRequirement(Integer requirementId);
 }

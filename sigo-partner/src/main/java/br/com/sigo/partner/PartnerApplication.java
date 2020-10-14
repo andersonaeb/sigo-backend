@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class PartnerApplication {
 
@@ -17,5 +20,10 @@ public class PartnerApplication {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper;
+    }
+
+    @PostConstruct
+    public void init(){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC-3"));
     }
 }

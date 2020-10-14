@@ -13,7 +13,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,7 +75,39 @@ public class RequirementServiceImpl implements RequirementService {
         requirementEntity.setStandardCode(requirementRequestDTO.getStandardCode());
         requirementEntity.setValidity(requirementRequestDTO.getValidity());
 
+        requirementRepository.save(requirementEntity);
+
         log.info("RequirementServiceImpl.updateRequirement - end - requirementEntity: [{}] took: [{}ms]", requirementEntity, System.currentTimeMillis() - timeStart);
+
+        return modelMapper.map(requirementEntity, RequirementResponseDTO.class);
+    }
+
+    @Override
+    public void deleteRequirement(Integer requirementId) {
+
+        log.info("RequirementServiceImpl.deleteRequirement - start - requirementId: [{}]", requirementId);
+        long timeStart = System.currentTimeMillis();
+
+        RequirementEntity requirementEntity = requirementRepository.findById(requirementId)
+                .orElseThrow(() -> new RequirementException("Requirement with ID " + requirementId + " not found"));
+
+        requirementRepository.delete(requirementEntity);
+
+        log.info("RequirementServiceImpl.deleteRequirement - end - requirementId: [{}] took: [{}ms]", requirementId, System.currentTimeMillis() - timeStart);
+    }
+
+    @Override
+    public RequirementResponseDTO getRequirement(Integer requirementId) {
+
+        log.info("RequirementServiceImpl.getRequirement - start - requirementId: [{}]", requirementId);
+        long timeStart = System.currentTimeMillis();
+
+        RequirementEntity requirementEntity = requirementRepository.findById(requirementId)
+                .orElseThrow(() -> new RequirementException("Requirement with ID " + requirementId + " not found"));
+
+        requirementRepository.save(requirementEntity);
+
+        log.info("RequirementServiceImpl.getRequirement - end - requirementEntity: [{}] took: [{}ms]", requirementEntity, System.currentTimeMillis() - timeStart);
 
         return modelMapper.map(requirementEntity, RequirementResponseDTO.class);
     }

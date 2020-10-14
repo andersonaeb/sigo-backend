@@ -67,8 +67,36 @@ public class PartnerServiceImpl implements PartnerService {
         partnerEntity.setCity(partnerRequestDTO.getCity());
         partnerEntity.setState(partnerRequestDTO.getState());
 
+        partnerEntity = partnerRepository.save(partnerEntity);
+
         log.info("PartnerServiceImpl.updatePartner - end - partnerEntity: [{}] took: [{}ms]", partnerEntity, System.currentTimeMillis() - timeStart);
 
         return modelMapper.map(partnerEntity, PartnerResponseDTO.class);
+    }
+
+    public PartnerResponseDTO getPartner(Integer partnerId) {
+
+        log.info("PartnerServiceImpl.getPartner - getPartner - partnerId: [{}]", partnerId);
+        long timeStart = System.currentTimeMillis();
+
+        PartnerEntity partnerEntity = partnerRepository.findById(partnerId)
+                .orElseThrow(() -> new PartnerException("Partner with ID " + partnerId + " not found"));
+
+        log.info("PartnerServiceImpl.getPartner - end - partnerEntity: [{}] took: [{}ms]", partnerEntity, System.currentTimeMillis() - timeStart);
+
+        return modelMapper.map(partnerEntity, PartnerResponseDTO.class);
+    }
+
+    public void deletePartner(Integer partnerId) {
+
+        log.info("PartnerServiceImpl.deletePartner - start - partnerId: [{}]", partnerId);
+        long timeStart = System.currentTimeMillis();
+
+        PartnerEntity partnerEntity = partnerRepository.findById(partnerId)
+                .orElseThrow(() -> new PartnerException("Partner with ID " + partnerId + " not found"));
+
+        partnerRepository.delete(partnerEntity);
+
+        log.info("PartnerServiceImpl.deletePartner - end - partnerId: [{}] took: [{}ms]", partnerId, System.currentTimeMillis() - timeStart);
     }
 }
