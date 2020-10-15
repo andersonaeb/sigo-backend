@@ -1,0 +1,179 @@
+swagger: "2.0"
+info:
+  description: "API para gestão de normas técnicas."
+  version: "1.0.0"
+  title: "Sigo Standard"
+host: "api-sigo.aw3.com.br"
+basePath: "/sigo-standard/v1"
+tags:
+- name: "standards"
+  description: "Gestão de normas técnicas"
+schemes:
+- "https"
+paths:
+  /standards:
+    get:
+      tags:
+      - "standards"
+      summary: "Listar todos as normas técnicas"
+      operationId: "getStandards"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Lista de normas técnicas"
+          schema:
+            $ref: "#/definitions/ListOfStandards"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+    post:
+      tags:
+      - "standards"
+      summary: "Criar nova norma técnica"
+      operationId: "addStandard"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Informações da norma"
+        required: true
+        schema:
+          $ref: "#/definitions/Standard"
+      responses:
+        "201":
+          description: "Norma técnica criada"
+          schema:
+            $ref: "#/definitions/Standard"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+  /standards/{standardId}:
+    put:
+      tags:
+      - "standards"
+      summary: "Atualizar uma norma técnica"
+      operationId: "updateStandard"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "standardId"
+        in: "path"
+        description: "ID da norma técnica"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Informações da norma técnica"
+        required: true
+        schema:
+          $ref: "#/definitions/Standard"
+      responses:
+        "200":
+          description: "Norma técnica atualizada"
+          schema:
+            $ref: "#/definitions/Standard"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+        "404":
+          description: "Norma técnica não encontrada"
+          schema:
+            $ref: "#/definitions/ApiError"
+    delete:
+      tags:
+      - "standards"
+      summary: "Excluir uma norma técnica"
+      operationId: "delteStandard"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "standardId"
+        in: "path"
+        description: "ID da norma técnica"
+        required: true
+        type: "integer"
+      responses:
+        "204":
+          description: "Norma técnica excluida"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+        "404":
+          description: "Norma técnica não encontrado"
+          schema:
+            $ref: "#/definitions/ApiError"
+
+definitions:
+  Standard:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "ID do requerimento"
+        example: 1
+        readOnly: true
+      title:
+        type: "string"
+        description: "Tecido plano - Determinação do esgarçamento em uma costura padrão"
+        example: "Adequação da norma ABNT NBR 9925:2009"
+      category:
+        type: "string"
+        description: "Têxteis e do vestuário"
+        example: 
+      code:
+        type: "string"
+        description: "Código da norma técnica"
+        example: "ABNT NBR 9925:2009"
+      keywords:
+        type: "string"
+        description: "Palavras chaves"
+        example: "textil,esgarçamento,costura"
+      description:
+        type: "string"
+        description: "Descrição sobre a norma técnica"
+        example: "Esta Norma especifica o método de ensaio utilizado para determinação do esgarçamento de tecido plano em uma costura-padrão."
+    required: 
+      - title
+      - code
+      - category
+  
+  ListOfStandards:
+    type: "object"
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/Standard'
+  
+  ApiError:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "Status do erro"
+        example: "BAD_REQUEST"
+      message:
+        type: "string"
+        description: "Mensagem"
+        example: "Validation failed for argument"
+      errors:
+        type: "array"
+        items:
+          type: "string"
+        example:
+          - "field: must not be blank"
+  

@@ -1,0 +1,329 @@
+swagger: "2.0"
+info:
+  description: "API para gestão de consultorias e assessorias e dos requerimentos."
+  version: "1.0.0"
+  title: "Sigo Partner"
+host: "api-sigo.aw3.com.br"
+basePath: "/sigo-partner/v1"
+tags:
+- name: "partners"
+  description: "Gestão de consultorias e assessorias"
+- name: "requirements"
+  description: "Gestão de requerimentos"
+schemes:
+- "https"
+paths:
+  /partners:
+    get:
+      tags:
+      - "partners"
+      summary: "Listar todos os parceiros"
+      operationId: "getPartners"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Lista de consultores e assessores"
+          schema:
+            $ref: "#/definitions/ListOfPartners"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+    post:
+      tags:
+      - "partners"
+      summary: "Criar novo parceiro"
+      operationId: "addPartner"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Informações do parceiro"
+        required: true
+        schema:
+          $ref: "#/definitions/Partner"
+      responses:
+        "201":
+          description: "Parceiro criado"
+          schema:
+            $ref: "#/definitions/Partner"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+  /partners/{partnerId}:
+    put:
+      tags:
+      - "partners"
+      summary: "Atualizar um parceiro"
+      operationId: "updatePartner"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "partnerId"
+        in: "path"
+        description: "ID do parceiro"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Informações do parceiro"
+        required: true
+        schema:
+          $ref: "#/definitions/Partner"
+      responses:
+        "200":
+          description: "Parceiro atualizado"
+          schema:
+            $ref: "#/definitions/Partner"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+        "404":
+          description: "Parceiro não encontrado"
+          schema:
+            $ref: "#/definitions/ApiError"
+    delete:
+      tags:
+      - "partners"
+      summary: "Excluir um parceiro"
+      operationId: "deltePartner"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "partnerId"
+        in: "path"
+        description: "ID do parceiro"
+        required: true
+        type: "integer"
+      responses:
+        "204":
+          description: "Parceiro excluido"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+        "404":
+          description: "Parceiro não encontrado"
+          schema:
+            $ref: "#/definitions/ApiError"
+            
+            
+  /requirements:
+    get:
+      tags:
+      - "requirements"
+      summary: "Listar todos os requerimentos"
+      operationId: "getRequirements"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Lista de requerimentos"
+          schema:
+            $ref: "#/definitions/ListOfRequirements"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+    post:
+      tags:
+      - "requirements"
+      summary: "Criar novo requerimento"
+      operationId: "addRequirement"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Informações do requerimento"
+        required: true
+        schema:
+          $ref: "#/definitions/Requirement"
+      responses:
+        "201":
+          description: "Requerimento criado"
+          schema:
+            $ref: "#/definitions/Requirement"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+  /requirements/{requirementId}:
+    put:
+      tags:
+      - "requirements"
+      summary: "Atualizar um requerimento"
+      operationId: "updateRequirement"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "requirementId"
+        in: "path"
+        description: "ID do requerimento"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Informações do requerimento"
+        required: true
+        schema:
+          $ref: "#/definitions/Requirement"
+      responses:
+        "200":
+          description: "Requerimento atualizado"
+          schema:
+            $ref: "#/definitions/Requirement"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+        "404":
+          description: "Requerimento não encontrado"
+          schema:
+            $ref: "#/definitions/ApiError"
+    delete:
+      tags:
+      - "requirements"
+      summary: "Excluir um requerimento"
+      operationId: "delteRequirement"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "requirementId"
+        in: "path"
+        description: "ID do requerimento"
+        required: true
+        type: "integer"
+      responses:
+        "204":
+          description: "Requerimento excluido"
+        "400":
+          description: "Erro ao processar a requisição"
+          schema:
+            $ref: "#/definitions/ApiError"
+        "404":
+          description: "Requerimento não encontrado"
+          schema:
+            $ref: "#/definitions/ApiError"
+
+definitions:
+  Partner:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "ID da empresa"
+        example: 1
+        readOnly: true
+      companyName:
+        type: "string"
+        description: "Nome da empresa"
+        example: "Consultoria X LTDA."
+      cnpj:
+        type: "string"
+        description: "CNPJ da empresa, sem pontuação"
+        example: "48706389000111"
+      city:
+        type: "string"
+        description: "Cidade"
+        example: "Erechim"
+      state:
+        type: "string"
+        description: "Estado"
+        example: "RS"
+    required: 
+      - companyName
+      - cnpj
+      - city
+      - state
+  
+  ListOfPartners:
+    type: "object"
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/Partner'
+
+  Requirement:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "ID do requerimento"
+        example: 1
+        readOnly: true
+      title:
+        type: "string"
+        description: "Título do requerimento"
+        example: "Adequação da norma ABNT NBR 9925:2009"
+      status:
+        type: "string"
+        description: "Status do requerimento"
+        enum:
+        - "OPEN"
+        - "IN_PROGRESS"
+        - "CLOSED"
+      standardCode:
+        type: "string"
+        description: "Código da norma técnica"
+        example: "ABNT NBR 9925:2009"
+      description:
+        type: "string"
+        description: "Descrição sobre o requerimento"
+        example: "Adequação de tecidos"
+      validity:
+        type: "string"
+        description: "Validade do requerimento"
+        example: "2020-12-12"
+    required: 
+      - title
+      - status
+      - description
+  
+  ListOfRequirements:
+    type: "object"
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/Requirement'
+  
+  ApiError:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "Status do erro"
+        example: "BAD_REQUEST"
+      message:
+        type: "string"
+        description: "Mensagem"
+        example: "Validation failed for argument"
+      errors:
+        type: "array"
+        items:
+          type: "string"
+        example:
+          - "field: must not be blank"
+  
