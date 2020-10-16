@@ -18,6 +18,7 @@ module "eks" {
       additional_userdata           = "sigo"
       asg_desired_capacity          = 2
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_one.id]
+      root_volume_size              = 5
     },
     {
       name                          = "sigo-worker-group-2"
@@ -25,6 +26,7 @@ module "eks" {
       additional_userdata           = "sigo"
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
       asg_desired_capacity          = 1
+      root_volume_size              = 5
     },
   ]
 }

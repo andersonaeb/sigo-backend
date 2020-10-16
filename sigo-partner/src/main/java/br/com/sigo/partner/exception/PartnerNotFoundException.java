@@ -1,8 +1,8 @@
 package br.com.sigo.partner.exception;
 
-public class PartnerException extends RuntimeException {
+public class PartnerNotFoundException extends RuntimeException {
 
-    public PartnerException(String message) {
+    public PartnerNotFoundException(String message) {
         super(message);
     }
 }

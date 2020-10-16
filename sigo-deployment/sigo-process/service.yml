@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sigo-process-service
+  namespace: sigo
+spec:
+  selector:
+    app: sigo-process
+  type: NodePort
+  ports:
+    - port: 8083
+      targetPort: 8080

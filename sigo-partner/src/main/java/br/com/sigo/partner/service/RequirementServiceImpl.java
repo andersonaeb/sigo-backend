@@ -3,7 +3,7 @@ package br.com.sigo.partner.service;
 import br.com.sigo.partner.dto.RequirementRequestDTO;
 import br.com.sigo.partner.dto.RequirementResponseDTO;
 import br.com.sigo.partner.entity.RequirementEntity;
-import br.com.sigo.partner.exception.RequirementException;
+import br.com.sigo.partner.exception.RequirementNotFoundException;
 import br.com.sigo.partner.repository.RequirementRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -13,11 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,7 +63,7 @@ public class RequirementServiceImpl implements RequirementService {
         long timeStart = System.currentTimeMillis();
 
         RequirementEntity requirementEntity = requirementRepository.findById(requirementId)
-                .orElseThrow(() -> new RequirementException("Requirement with ID " + requirementId + " not found"));
+                .orElseThrow(() -> new RequirementNotFoundException("Requirement with ID " + requirementId + " not found"));
 
         requirementEntity.setTitle(requirementRequestDTO.getTitle());
         requirementEntity.setDescription(requirementRequestDTO.getDescription());
@@ -89,7 +85,7 @@ public class RequirementServiceImpl implements RequirementService {
         long timeStart = System.currentTimeMillis();
 
         RequirementEntity requirementEntity = requirementRepository.findById(requirementId)
-                .orElseThrow(() -> new RequirementException("Requirement with ID " + requirementId + " not found"));
+                .orElseThrow(() -> new RequirementNotFoundException("Requirement with ID " + requirementId + " not found"));
 
         requirementRepository.delete(requirementEntity);
 
@@ -103,7 +99,7 @@ public class RequirementServiceImpl implements RequirementService {
         long timeStart = System.currentTimeMillis();
 
         RequirementEntity requirementEntity = requirementRepository.findById(requirementId)
-                .orElseThrow(() -> new RequirementException("Requirement with ID " + requirementId + " not found"));
+                .orElseThrow(() -> new RequirementNotFoundException("Requirement with ID " + requirementId + " not found"));
 
         requirementRepository.save(requirementEntity);
 

@@ -15,6 +15,7 @@ public class RequirementRequestDTO {
     @NotBlank
     private String title;
 
+    @NotBlank
     private String description;
 
     @NotBlank

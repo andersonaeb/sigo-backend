@@ -1,8 +1,8 @@
 package br.com.sigo.partner.exception;
 
-public class RequirementException extends RuntimeException {
+public class RequirementNotFoundException extends RuntimeException {
 
-    public RequirementException(String message) {
+    public RequirementNotFoundException(String message) {
         super(message);
     }
 }

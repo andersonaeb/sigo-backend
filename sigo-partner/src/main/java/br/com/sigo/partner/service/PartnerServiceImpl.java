@@ -3,7 +3,7 @@ package br.com.sigo.partner.service;
 import br.com.sigo.partner.dto.PartnerRequestDTO;
 import br.com.sigo.partner.dto.PartnerResponseDTO;
 import br.com.sigo.partner.entity.PartnerEntity;
-import br.com.sigo.partner.exception.PartnerException;
+import br.com.sigo.partner.exception.PartnerNotFoundException;
 import br.com.sigo.partner.repository.PartnerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -60,7 +60,7 @@ public class PartnerServiceImpl implements PartnerService {
         long timeStart = System.currentTimeMillis();
 
         PartnerEntity partnerEntity = partnerRepository.findById(partnerId)
-                .orElseThrow(() -> new PartnerException("Partner with ID " + partnerId + " not found"));
+                .orElseThrow(() -> new PartnerNotFoundException("Partner with ID " + partnerId + " not found"));
 
         partnerEntity.setCompanyName(partnerRequestDTO.getCompanyName());
         partnerEntity.setCnpj(partnerRequestDTO.getCnpj());
@@ -80,7 +80,7 @@ public class PartnerServiceImpl implements PartnerService {
         long timeStart = System.currentTimeMillis();
 
         PartnerEntity partnerEntity = partnerRepository.findById(partnerId)
-                .orElseThrow(() -> new PartnerException("Partner with ID " + partnerId + " not found"));
+                .orElseThrow(() -> new PartnerNotFoundException("Partner with ID " + partnerId + " not found"));
 
         log.info("PartnerServiceImpl.getPartner - end - partnerEntity: [{}] took: [{}ms]", partnerEntity, System.currentTimeMillis() - timeStart);
 
@@ -93,7 +93,7 @@ public class PartnerServiceImpl implements PartnerService {
         long timeStart = System.currentTimeMillis();
 
         PartnerEntity partnerEntity = partnerRepository.findById(partnerId)
-                .orElseThrow(() -> new PartnerException("Partner with ID " + partnerId + " not found"));
+                .orElseThrow(() -> new PartnerNotFoundException("Partner with ID " + partnerId + " not found"));
 
         partnerRepository.delete(partnerEntity);
 

@@ -59,4 +59,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         RestExceptionResponse response = new RestExceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+    @ExceptionHandler({RequirementNotFoundException.class, PartnerNotFoundException.class})
+    protected ResponseEntity<Object> notFoundException(RuntimeException ex) {
+        RestExceptionResponse response = new RestExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 }

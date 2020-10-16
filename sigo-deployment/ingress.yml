@@ -12,7 +12,15 @@ spec:
   rules:
     - http:
         paths:
-          - path: /*
+          - path: /sigo-partner/*
             backend:
               serviceName: "sigo-partner-service"
               servicePort: 8081
+          - path: /sigo-standard/*
+            backend:
+              serviceName: "sigo-standard-service"
+              servicePort: 8082
+          - path: /sigo-process/*
+            backend:
+              serviceName: "sigo-process-service"
+              servicePort: 8083
