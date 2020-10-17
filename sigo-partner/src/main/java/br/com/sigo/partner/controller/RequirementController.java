@@ -20,36 +20,31 @@ public class RequirementController {
     @Autowired
     private RequirementService requirementService;
 
-    @GetMapping(value = "/v1/requirements", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/v1/requirements", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<Page<RequirementResponseDTO>> getRequirements(Pageable pageable) {
         Page<RequirementResponseDTO> requirements = requirementService.getRequirements(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(requirements);
     }
 
-    @GetMapping(value = "/v1/requirements/{requirementId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/v1/requirements/{requirementId}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<RequirementResponseDTO> getRequirement(@PathVariable Integer requirementId) {
         RequirementResponseDTO requirement = requirementService.getRequirement(requirementId);
         return ResponseEntity.status(HttpStatus.OK).body(requirement);
     }
 
-    @PostMapping(value = "/v1/requirements", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/v1/requirements", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<RequirementResponseDTO> createRequirement(@RequestBody @Valid RequirementRequestDTO requirementRequestDTO) {
         RequirementResponseDTO requirement = requirementService.createRequirement(requirementRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(requirement);
     }
 
-    @PutMapping(value = "/v1/requirements/{requirementId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(value = "/v1/requirements/{requirementId}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<RequirementResponseDTO> updateRequirement(@PathVariable Integer requirementId, @RequestBody @Valid RequirementRequestDTO requirementRequestDTO) {
         RequirementResponseDTO requirement = requirementService.updateRequirement(requirementId, requirementRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(requirement);
     }
 
-    @DeleteMapping(value = "/v1/requirements/{requirementId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping(value = "/v1/requirements/{requirementId}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<RequirementResponseDTO> updateRequirement(@PathVariable Integer requirementId) {
         requirementService.deleteRequirement(requirementId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

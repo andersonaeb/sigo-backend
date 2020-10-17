@@ -16,8 +16,7 @@ public class ProcessController {
     @Autowired
     private ProcessService processService;
 
-    @GetMapping(value = "/v1/processes", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/v1/processes", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<ProcessesDTO> listAllProcesses() {
         ProcessesDTO responseDTO = processService.listAllProcesses();
         return ResponseEntity.status(HttpStatus.OK).body(responseDTO);

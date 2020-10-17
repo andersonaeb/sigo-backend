@@ -5,7 +5,7 @@ metadata:
   namespace: "sigo"
   annotations:
     kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internal # internet-facing
+    alb.ingress.kubernetes.io/scheme: internal # internet-facing, internal    
   labels:
     app: sigo-ingress
 spec:
@@ -18,7 +18,7 @@ spec:
               servicePort: 8081
           - path: /sigo-standard/*
             backend:
-              serviceName: "sigo-standard-service"
+              serviceName: "sigo-standard-service"  
               servicePort: 8082
           - path: /sigo-process/*
             backend:

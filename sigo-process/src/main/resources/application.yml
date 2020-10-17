@@ -7,3 +7,7 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
+server:
+  servlet:
+    context-path: /sigo-process

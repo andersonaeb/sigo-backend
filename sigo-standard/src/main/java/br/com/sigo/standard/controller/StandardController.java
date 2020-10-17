@@ -19,36 +19,31 @@ public class StandardController {
     @Autowired
     private StandardService standardService;
 
-    @GetMapping(value = "/v1/standards", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/v1/standards", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<Page<StandardResponseDTO>> getStandards(Pageable pageable) {
         Page<StandardResponseDTO> standards = standardService.getStandards(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(standards);
     }
 
-    @PostMapping(value = "/v1/standards", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/v1/standards", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<StandardResponseDTO> createStandard(@RequestBody @Valid StandardRequestDTO standardRequestDTO) {
         StandardResponseDTO standard = standardService.createStandard(standardRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(standard);
     }
 
-    @GetMapping(value = "/v1/standards/{standardId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/v1/standards/{standardId}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<StandardResponseDTO> getStandard(@PathVariable Integer standardId) {
         StandardResponseDTO standard = standardService.getStandard(standardId);
         return ResponseEntity.status(HttpStatus.OK).body(standard);
     }
 
-    @PutMapping(value = "/v1/standards/{standardId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping(value = "/v1/standards/{standardId}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<StandardResponseDTO> updateStandard(@PathVariable Integer standardId, @RequestBody @Valid StandardRequestDTO standardRequestDTO) {
         StandardResponseDTO standard = standardService.updateStandard(standardId, standardRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(standard);
     }
 
-    @DeleteMapping(value = "/v1/standards/{standardId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping(value = "/v1/standards/{standardId}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public ResponseEntity<StandardResponseDTO> deleteStandard(@PathVariable Integer standardId) {
         standardService.deleteStandard(standardId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
